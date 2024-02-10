@@ -1,0 +1,66 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.toolbox-cont{
+    background-color: gray;
+    height: 8rem;
+    border: 2px solid red;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+}
+.toolbox-cont >*{
+    margin-left: 10rem;
+}
+ .toolbox-status-cont{
+    display: flex;
+    height: 4rem;
+    width: 18rem;
+    background-color: darkgray;
+    align-items: center;
+    border-radius: 1rem;
+    justify-content: space-evenly;
+    border: 2px solid violet;
+    
+ }
+ .color {
+    height: 2rem;
+    width: 3rem;
+ }
+ .color:hover{
+    background-color: lightgrey;
+ }
+ .lightpink {
+    background-color: lightpink;
+ }
+ .lightgreen{
+    background-color: lightgreen;
+ }
+ .lightblue {
+    background-color: lightblue;
+ }
+ .black {
+    background-color: black;
+ }
+ .action-btn-cont{
+    display: flex;
+    height: 4rem;
+    width: 8rem;
+    background-color: darkgray;
+    border-radius: 1rem;
+    border: 2px solid violet;
+ }
+ .action-btn-cont > * {
+    font-size: 3rem;
+    width: 50%;
+    color: honeydew;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .action-btn-cont > *:hover{
+    background-color: rgb(15, 11, 233);
+    border-radius: 1rem;
+ }
