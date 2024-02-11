@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban Board</title>
     <link rel="stylesheet" href="/Projects/Kanban-board/kanban.css"/>
+
     <script src="https://kit.fontawesome.com/135a32bc45.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- Nav bar -->
     <div class="toolbox-cont">
+        <!-- Filter -->
         <div class="toolbox-status-cont">
             <div class="lightpink color"></div>
             <div class="lightgreen color"></div>
             <div class="lightblue color"></div>
             <div class="black color"></div>
         </div>
+        <!-- Add or delete button -->
         <div class="action-btn-cont">
             <div class="add-btn">
                 <i class="fa-solid fa-square-plus"></i>
@@ -24,5 +28,50 @@
             </div>
         </div>
     </div>
+    <!-- Ticket Creation from add button -->
+    <div class="model-cont">
+        <textarea class="textarea-cont" placeholder="Enter your task information"></textarea>
+        <div class="status-color-cont">
+            <div class="lightpink status-color"></div>
+            <div class="lightgreen status-color"></div>
+            <div class="lightblue status-color"></div>
+            <div class="black status-color"></div>
+        </div>
+    </div>
+    <div class="main-ticket-cont">  
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+            <div class="lock-btn"><i class="fa-solid fa-lock"></i></div>
+        </div>
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+        </div>
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+        </div>
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+        </div>
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+        </div>
+        <div class="ticket-cont">
+            <div class="ticket-color"> </div>
+            <div class="ticket-id">115151351</div>
+            <div class="task-area">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam dignissimos hic illo dolore veniam iste sapiente laboriosam aut accusamus adipisci.</div>
+        </div>
+    </div>
+
+    <script src="/Projects/Kanban-board/kanban.js"></script>
 </body>
 </html>
