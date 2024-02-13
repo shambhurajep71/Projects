@@ -99,6 +99,18 @@
    height: 3rem;
    width: 5rem;
  }
+ .create-btn{
+   display: flex;
+   right: 0;
+   bottom: 0;
+   align-content: center;
+   justify-content:right;
+   height: 2rem;
+ }
+ .create-btn :hover{
+   background-color: aqua;
+   
+ }
 
  /* Ticket */
  .main-ticket-cont {
@@ -110,7 +122,7 @@
  }
 
  .ticket-cont {
-   height: 12 rem;
+   height: 12rem;
    width: 14rem;
    background-color: rgb(239, 127, 35);
    position: relative;
