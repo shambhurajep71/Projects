@@ -129,7 +129,6 @@
  }
 
  .ticket-color{
-   background-color: black;
    height: 1rem;
  }
 .ticket-id{
@@ -142,3 +141,8 @@
    bottom:0;
 }
 
+/* to now which status color is selected */
+
+.active-ticket-color{
+   border: 5px solid darkblue;
+}
