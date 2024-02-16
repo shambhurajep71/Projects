@@ -4,6 +4,7 @@ const mainTicketCont = document.querySelector(".main-ticket-cont");
 const createTicketBtn =document.querySelector(".create-btn");
 const textArea = document.querySelector(".textarea-cont");
 const allStatusColor = document.querySelectorAll(".status-color");
+const removeBtn = document.querySelector(".remove-btn");
 let ticketStatusColor ="black"
 
 // clearing the currently selected status
@@ -50,7 +51,30 @@ const createTicket =(ticketInfo) =>{
    <div class="task-area">${ticketInfo}</div>
    <div class="lock-btn"><i class="fa-solid fa-lock"></i></div>`
    mainTicketCont.appendChild(ticketCont);
+   removeThisTicket(ticketCont);
 }
 
+// remove functionality
+// activating the delete button:
+ let removeTicketFlag= false;
+removeBtn.addEventListener("click", ()=>{
+    removeTicketFlag=!removeTicketFlag;
+    if(removeTicketFlag===true){
+        window.alert("Delete Button is activeted");
+        removeBtn.style.color="red";
+    }else{
+        window.alert("Delete Button is Deactivated");
+        removeBtn.style.color="white";
+    }
+    
+})
 
+// removing the ticket after clicking on a particular ticket
 
+const removeThisTicket = (ticketCont)=> {
+    ticketCont.addEventListener("click", () =>{
+        if(removeTicketFlag===true){
+            ticketCont.remove();
+        }
+   });
+}
