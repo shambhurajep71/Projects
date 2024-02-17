@@ -5,8 +5,11 @@ const createTicketBtn =document.querySelector(".create-btn");
 const textArea = document.querySelector(".textarea-cont");
 const allStatusColor = document.querySelectorAll(".status-color");
 const removeBtn = document.querySelector(".remove-btn");
+const toolboxColors = document.querySelectorAll(".color");
 let ticketStatusColor ="black"
+let removeTicketFlag= false;
 
+ let ticketArr=[];
 // clearing the currently selected status
  const cleanUpSelectedStatus = () =>{
     allStatusColor.forEach((currentEle) => {
@@ -28,7 +31,7 @@ addBtn.addEventListener("click", () => {
 // crating ticket Dynamically
 createTicketBtn.addEventListener("click", (event) => {
     cleanUpSelectedStatus();
-    createTicket(textArea.value);
+    createTicket(ticketStatusColor,textArea.value,"");
     modelCont.style.display="none";
     textArea.value="";
 });
@@ -43,20 +46,32 @@ allStatusColor.forEach((statusColor) => {
     })
 });
 
-const createTicket =(ticketInfo) =>{
-   let ticketCont= document.createElement("div");
+const createTicket =(ticketStatusColor,ticketInfo,ticketUniqueId) =>{
+    const ticketId= ticketUniqueId || shortid();
+  const ticketCont= document.createElement("div");
     ticketCont.setAttribute("class", "ticket-cont");
-   ticketCont.innerHTML=` <div class="${ ticketStatusColor} ticket-color"> </div>
-   <div class="ticket-id">${shortid()/**? crating a random id */}</div>
-   <div class="task-area">${ticketInfo}</div>
-   <div class="lock-btn"><i class="fa-solid fa-lock"></i></div>`
+   ticketCont.innerHTML=
+   ` <div class="${ ticketStatusColor} ticket-color">
+    </div>
+   <div class="ticket-id">${ticketId/**? crating a random id */}
+   </div>
+   <div class="task-area">
+   ${ticketInfo}</div>
+   <div class="lock-btn">
+   <i class="fa-solid fa-lock"></i>
+   </div>`
    mainTicketCont.appendChild(ticketCont);
+   if(ticketUniqueId.length<=0){
+    ticketArr.push({ticketId,ticketInfo,ticketStatusColor});
+   }
    removeThisTicket(ticketCont);
+   handleEdit(ticketCont);
+   updateStatusColor(ticketCont);
 }
 
 // remove functionality
 // activating the delete button:
- let removeTicketFlag= false;
+
 removeBtn.addEventListener("click", ()=>{
     removeTicketFlag=!removeTicketFlag;
     if(removeTicketFlag===true){
@@ -78,3 +93,66 @@ const removeThisTicket = (ticketCont)=> {
         }
    });
 }
+//Edit functionality
+
+const handleEdit = (ticket)=> {
+    const ticketLockElem = ticket.querySelector(".lock-btn");
+    const lockBtnIcon = ticketLockElem.children[0];
+    const editableTextArea = ticket.querySelector(".task-area");
+
+    lockBtnIcon.addEventListener("click", () =>{
+        if(lockBtnIcon.classList.contains("fa-lock")){
+            lockBtnIcon.classList.remove("fa-lock");
+            lockBtnIcon.classList.add("fa-lock-open");
+            editableTextArea.setAttribute("contenteditable", "true");
+        }else{
+            lockBtnIcon.classList.remove("fa-lock-open");
+            lockBtnIcon.classList.add("fa-lock");
+            editableTextArea.setAttribute("contenteditable", "false");
+        }
+    });
+};
+
+// updating stauus color of created ticket
+ let colors= ["lightpink", "lightgreen", "lightblue", "black"];
+
+const updateStatusColor = (ticket) => {
+    const colorBand  = ticket.querySelector(".ticket-color");
+    colorBand.addEventListener("click", (event) => {
+        let currentColor = "";
+         for( let idx=0; idx<colorBand.classList.length; idx++){
+             if(colorBand.classList[idx] !== "ticket-color"){
+            currentColor=colorBand.classList[idx];
+            }
+         }
+         let currentColorIndex= colors.indexOf(currentColor);
+         let nextColor =colors[(currentColorIndex+1)%colors.length];
+            colorBand.classList.remove(currentColor);
+            colorBand.classList.add(nextColor);
+    })
+
+}
+
+// filter functionalty
+
+  // adding event listner for every color on toolboz
+  for(let i=0; i<toolboxColors.length;i++) {
+    toolboxColors[i].addEventListener("click", () => {
+        // get the selected filter color
+        let selectedToolbocColor= toolboxColors[i].classList[0];
+     // filter the tickets based on the selected color
+            const filteredTickets = ticketArr.filter( (ticket)=> {
+            return selectedToolbocColor=== ticket.ticketStatusColor;
+     })
+     // remove all the tickets
+     const allTicktes = document.querySelectorAll(".ticket-cont");
+     for(let i=0; i<allTicktes.length; i++) {
+         allTicktes[i].remove();
+     }
+     // recreate the filtered tickets
+     filteredTickets.forEach( (ticket) => {
+        createTicket(ticket.ticketStatusColor,ticket.ticketInfo,ticket.ticketId);
+    })
+    })
+  }
+// creating a array to store all the tickets
