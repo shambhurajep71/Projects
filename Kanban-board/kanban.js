@@ -10,6 +10,7 @@ let ticketStatusColor ="black"
 let removeTicketFlag= false;
 
  let ticketArr=[];
+ console.log(ticketArr);
 // clearing the currently selected status
  const cleanUpSelectedStatus = () =>{
     allStatusColor.forEach((currentEle) => {
@@ -33,6 +34,7 @@ createTicketBtn.addEventListener("click", (event) => {
     cleanUpSelectedStatus();
     createTicket(ticketStatusColor,textArea.value,"");
     modelCont.style.display="none";
+    ticketStatusColor ="black"
     textArea.value="";
 });
 
@@ -64,9 +66,9 @@ const createTicket =(ticketStatusColor,ticketInfo,ticketUniqueId) =>{
    if(ticketUniqueId.length<=0){
     ticketArr.push({ticketId,ticketInfo,ticketStatusColor});
    }
-   removeThisTicket(ticketCont);
-   handleEdit(ticketCont);
-   updateStatusColor(ticketCont);
+   removeThisTicket(ticketCont,ticketId);
+   handleEdit(ticketCont,ticketId);
+   updateStatusColor(ticketCont,ticketId);
 }
 
 // remove functionality
@@ -86,16 +88,19 @@ removeBtn.addEventListener("click", ()=>{
 
 // removing the ticket after clicking on a particular ticket
 
-const removeThisTicket = (ticketCont)=> {
+const removeThisTicket = (ticketCont, ticketId)=> {
     ticketCont.addEventListener("click", () =>{
         if(removeTicketFlag===true){
             ticketCont.remove();
+            const ticketgettingDeleted = getTicket(ticketId);
+            ticketArr.splice(ticketgettingDeleted,1);
+            console.log("after deleting the ticket"+ ticketArr);
         }
    });
 }
 //Edit functionality
 
-const handleEdit = (ticket)=> {
+const handleEdit = (ticket,ticketId)=> {
     const ticketLockElem = ticket.querySelector(".lock-btn");
     const lockBtnIcon = ticketLockElem.children[0];
     const editableTextArea = ticket.querySelector(".task-area");
@@ -109,6 +114,11 @@ const handleEdit = (ticket)=> {
             lockBtnIcon.classList.remove("fa-lock-open");
             lockBtnIcon.classList.add("fa-lock");
             editableTextArea.setAttribute("contenteditable", "false");
+            // saving the edited content
+            const ticketTobeUpdted = ticketArr.findIndex(
+                 (ticketInArr) => ticketInArr.ticketId === ticketId
+            );
+            ticketArr[ticketTobeUpdted].ticketInfo = editableTextArea.innerText;
         }
     });
 };
@@ -116,7 +126,7 @@ const handleEdit = (ticket)=> {
 // updating stauus color of created ticket
  let colors= ["lightpink", "lightgreen", "lightblue", "black"];
 
-const updateStatusColor = (ticket) => {
+const updateStatusColor = (ticket,ticketId) => {
     const colorBand  = ticket.querySelector(".ticket-color");
     colorBand.addEventListener("click", (event) => {
         let currentColor = "";
@@ -129,6 +139,11 @@ const updateStatusColor = (ticket) => {
          let nextColor =colors[(currentColorIndex+1)%colors.length];
             colorBand.classList.remove(currentColor);
             colorBand.classList.add(nextColor);
+            //saving the status color when user decide to change status original to next color
+            const ticketTobeUpdted = ticketArr.findIndex(
+                (ticketInArr) => ticketInArr.ticketId === ticketId
+            );
+           ticketArr[ticketTobeUpdted].ticketStatusColor = nextColor;
     })
 
 }
@@ -154,5 +169,30 @@ const updateStatusColor = (ticket) => {
         createTicket(ticket.ticketStatusColor,ticket.ticketInfo,ticket.ticketId);
     })
     })
+
+    //removing tickets from screen which are present o9n scree after filter
+    toolboxColors[i].addEventListener("dblclick", () => {
+        const filteredTicketsOnScreen = document.querySelectorAll(".ticket-cont");
+        for(let i=0; i<filteredTicketsOnScreen.length; i++) {
+            filteredTicketsOnScreen[i].remove();
+        }
+        // creating tickets that present in ticketArr
+        ticketArr.forEach( (ticket) => {
+            createTicket(ticket.ticketStatusColor,ticket.ticketInfo,ticket.ticketId);
+        })
+    })
   }
-// creating a array to store all the tickets
+
+  // we need to delete tickets from ticketArr that has beed deleted by the user 
+
+  // to do that we need to get the ticket that need to be deleted from arra on the basis of unique ticket id
+   const getTicket = (ticketId) => {
+    let ticketNeedToDelete = {};
+    for(let i=0 ; i<ticketArr.length ; i++) {
+        if(ticketArr[i].ticketId === ticketId) {
+            ticketNeedToDelete = ticketArr[i];
+            break;
+        }
+    }
+    return ticketNeedToDelete;
+   }
