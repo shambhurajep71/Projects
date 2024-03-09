@@ -16,8 +16,8 @@ let removeTicketFlag= false;
  // create ticket
 const createTicket =(ticketStatusColor,ticketInfo,ticketUniqueId) =>{
     const ticketId= ticketUniqueId || shortid();
-  const ticketCont= document.createElement("div");
-    ticketCont.setAttribute("class", "ticket-cont");
+   const ticketCont= document.createElement("div");
+      ticketCont.setAttribute("class", "ticket-cont");
    ticketCont.innerHTML=
    ` <div class="${ ticketStatusColor} ticket-color">
     </div>
