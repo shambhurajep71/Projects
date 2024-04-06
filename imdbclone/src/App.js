@@ -1,11 +1,10 @@
 import './App.css';
 import Navbar from './Componants/Navbar';
-import Banner from './Componants/Banner';
-import Movies from './Componants/Movies';
+import Banner from './Componants/Banner/Banner';
+import Movies from './Componants/Movies/Movies';
 import WatchList from './Componants/WatchList';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Fragment } from "react";
-
 function App() {
   return (
     <div className=' bg-slate-500'>
